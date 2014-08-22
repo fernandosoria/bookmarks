@@ -18,6 +18,9 @@ gem 'figaro'
 # Use Faker to auto generate fake data
 gem 'faker'
 
+# Use Omniauth-Facebook to allow users to login with Facebook login credentials
+gem 'omniauth-facebook'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'
