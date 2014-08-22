@@ -3,8 +3,28 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.5'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use Bootstrap
+gem 'bootstrap-sass', '~> 3.1.1'
+
+# Use HAML to generate HTML
+gem 'haml-rails'
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
+
+group :development do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
+end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails', '~> 4.0'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
