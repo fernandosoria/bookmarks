@@ -2,4 +2,4 @@
 .jumbotron
   %h1 Bookmarks
   %p Bookmarks allows users to bookmark URLs via email, peruse other user's bookmarks and maintain a personal index of categorized bookmarks.
-  %p Sign In or Sign Up today!
+  %p #{link_to "Sign In", new_user_session_path, class: 'btn btn-primary'} or #{link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary'} today!
