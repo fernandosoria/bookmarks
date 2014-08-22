@@ -4,9 +4,9 @@ class IncomingController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: [:create]
 
   def create
-    email params[:sender]
-    subject params[:subject]
-    body params['body-plain']
+    email = params[:sender]
+    subject = params[:subject]
+    body = params['body-plain']
     url = /\b(([\w-]+:\/\/?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|\/)))/i.match(body)
 
     puts "Email: #{email}"
