@@ -4,14 +4,16 @@ class IncomingController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: [:create]
 
   def create
-    # Take a look at these in your server logs
-    # to get a sense of what you're dealing with.
-    puts "INCOMING PARAMS HERE: #{params}"
+    email params[:sender]
+    subject params[:subject]
+    body params['body-plain']
+    url = /\b(([\w-]+:\/\/?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|\/)))/i.match(body)
 
-    # You put the message-splitting and business
-    # magic here. 
+    puts "Email: #{email}"
+    puts "Subject: #{subject}"
+    puts "Body: #{body}"
+    puts "URL: #{url}"
 
-    # Assuming all went well. 
     head 200
   end
 end
