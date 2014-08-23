@@ -9,10 +9,30 @@ class IncomingController < ApplicationController
     body = params['body-plain']
     url = /\b(([\w-]+:\/\/?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|\/)))/i.match(body)
 
-    puts "Email: #{email}"
-    puts "Subject: #{subject}"
-    puts "Body: #{body}"
-    puts "URL: #{url}"
+    # lookup user by email
+    @user = User.find_by_email(email)
+
+    # if email in User db, then create and add bookmark
+    # if @user.id
+
+      # create bookmark
+      @bookmark = Bookmark.new()
+
+      # associate bookmark to user
+      @bookmark.user = @user
+
+      # split subject to seperate tags into array
+      @tags = subject.split('#')
+      @tags = @tags.map(&:trim)
+
+      # associate tags with @bookmark
+      @bookmark.tags = @tags
+
+      # Add URL to bookmark
+      @bookmark.url = url
+
+      @bookmark.save
+    # end
 
     head 200
   end
