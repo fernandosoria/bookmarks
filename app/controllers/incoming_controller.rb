@@ -22,8 +22,7 @@ class IncomingController < ApplicationController
       @bookmark.user = @user
 
       # split subject to seperate tags into array
-      @tags = subject.split('#')
-      @tags = @tags.map(&:trim)
+      @tags = subject.split('#').map(&:strip)
 
       # associate tags with @bookmark
       @bookmark.tags = @tags
