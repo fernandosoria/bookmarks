@@ -8,8 +8,12 @@
   %body
     .container
       %ul.nav.nav-tabs
-        %li= link_to "Bookmarks", root_path
+        %li= link_to "Home", root_path
         %li= link_to "About", about_path
+        %li= link_to "Bookmarks", bookmarks_path
+        - if current_user
+          %li= link_to "My Bookmarks", user_path(current_user)
+          %li= link_to "Profile", edit_user_registration_path
 
         .pull-right.user-info
           - if current_user

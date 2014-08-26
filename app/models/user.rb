@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
       user.name = auth.info.name   # assuming the user model has a name
     end
   end
+
+  def role?(base_role)
+    role == base_role.to_s
+  end
 end

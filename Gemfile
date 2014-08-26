@@ -21,6 +21,9 @@ gem 'faker'
 # Use Omniauth-Facebook to allow users to login with Facebook login credentials
 gem 'omniauth-facebook'
 
+# Use Pundit to generate authorization for roles
+gem 'pundit'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'

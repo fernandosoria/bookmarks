@@ -1,0 +1,15 @@
+= form_for [bookmark] do |form|
+  - if bookmark.errors.any?
+    .alert.alert-danger
+      %h4 There are #{pluralize(bookmark.errors.count, "error")}
+      %ul
+        - bookmark.errors.full_messages.each do |msg|
+          %li= msg
+
+  .col-md-6
+    .form-group
+      = form.label :url
+      = form.text_field :url, autofocus: true, class: 'form-control', placeholder: 'Enter url'
+
+    .form-group
+      = form.submit 'Save', class: 'btn btn-success'
