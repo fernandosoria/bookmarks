@@ -7,13 +7,18 @@ describe IncomingController do
       @user = create(:user)
     end
 
-    it "should insert bookmark and associate with user" do
+    it "should create bookmark with url, user_id and tags" do
       email = @user.email
       subject = '#programming #cis'
       body = 'https://www.bloc.io/web-development \n\n \n \n\n________________________________\n\nJohn Smith\ne john@example.com\np 555.555.1234'
       
       post :create, {:sender => email, :subject => subject, 'body-plain' => body}
+
+      bookmark = @user.bookmarks.first
+
       expect(@user.bookmarks.count).to eq(1)
+      expect(bookmark.tags.map(&:label)).to eq(['programming','cis'])
+      expect(bookmark.url).to eq('https://www.bloc.io/web-development')
     end
 
   end

@@ -18,12 +18,13 @@ class IncomingController < ApplicationController
       # create and associate bookmark to user
       @bookmark = @user.bookmarks.build()
 
-      # split subject to seperate tags into array
-      @tags = subject.split('#').map(&:strip)
+      # split subject to seperate tags into array and reject any empty tags
+      @tags = subject.split('#').map(&:strip).reject(&:empty?)
 
       # associate tags with @bookmark
       @tags.each do |tag|
-        @bookmark.tags.build(label: tag)
+        tag = @bookmark.tags.build(label: tag)
+        tag.save!
       end
 
       # Add URL to bookmark
