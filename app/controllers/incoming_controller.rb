@@ -19,7 +19,8 @@ class IncomingController < ApplicationController
       @bookmark = @user.bookmarks.build()
 
       # split subject to seperate tags into array and reject any empty tags
-      @tags = subject.split('#').map(&:strip).reject(&:empty?)
+      @tags = subject.scan(/#+[a-zA-Z0-9]*/i).map{|e| e.gsub(/#/,'')}
+
 
       # associate tags with @bookmark
       @tags.each do |tag|

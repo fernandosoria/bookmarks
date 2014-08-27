@@ -21,5 +21,16 @@ describe IncomingController do
       expect(bookmark.url).to eq('https://www.bloc.io/web-development')
     end
 
+    it "should filter only hashtags" do
+      email = @user.email
+      subject = 'Fw: #programming #javascript awesome article #webdevelopment'
+      body = 'http://lifehacker.com/eloquent-javascript-teaches-you-javascript-for-free-1614045478 \n\n \n \n\n________________________________\n\nJohn Smith\ne john@example.com\np 555.555.1234'
+      
+      post :create, {:sender => email, :subject => subject, 'body-plain' => body}
+
+      bookmark = @user.bookmarks.first
+      expect(bookmark.tags.map(&:label)).to eq(['programming','javascript','webdevelopment'])
+    end
+
   end
 end
