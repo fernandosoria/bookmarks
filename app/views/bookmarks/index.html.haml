@@ -1,5 +1,11 @@
 %h1 Bookmarks
-- @bookmarks.each do |bookmark|
+- @tags.each do |tag|
   .media
     .media-body
-      %h4.media-heading= bookmark.url
+      %h4.media-heading= link_to "##{tag.label}", tag
+      - tag.bookmarks.each_with_index do |bookmark, index|
+        %ul.list-unstyled
+          - if index < 4
+            %li= bookmark.url
+      - if tag.bookmarks.length > 4
+        = link_to "More &#10145;".html_safe, tag
