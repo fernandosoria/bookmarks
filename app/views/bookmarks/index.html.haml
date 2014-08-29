@@ -3,8 +3,8 @@
   .media
     .media-body
       %h4.media-heading= link_to "##{tag.label}", tag
-      - tag.bookmarks.each_with_index do |bookmark, index|
-        %ul.list-unstyled
+      %ul.list-unstyled
+        - tag.bookmarks.each_with_index do |bookmark, index|
           - if index < 4
             %li= bookmark.url
             = render partial: 'likes/like', locals: {bookmark: bookmark}

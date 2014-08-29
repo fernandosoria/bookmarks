@@ -3,8 +3,8 @@
   .media
     .media-body
       %h4.media-heading= link_to "##{tag.label}", tag
-      - tag.bookmarks.each do |bookmark|
-        %ul.list-unstyled
+      %ul.list-unstyled
+        - tag.bookmarks.each do |bookmark|
           - if current_user.id == bookmark.user_id
             %li= bookmark.url
             - if policy(bookmark).edit?
@@ -18,8 +18,8 @@
     .media
       .media-body
         %h4.media-heading= link_to "##{Tag.find_by(id: i).label}", Tag.find_by(id: i)
-        - Tag.find_by(id: i).bookmarks.each do |bookmark|
-          %ul.list-unstyled
+        %ul.list-unstyled
+          - Tag.find_by(id: i).bookmarks.each do |bookmark|
             - if current_user.liked(bookmark)
               %li= bookmark.url
               = render partial: 'likes/like', locals: {bookmark: bookmark}
