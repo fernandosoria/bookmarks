@@ -1,5 +1,5 @@
-- like = current_user.likes.find_by_bookmark_id(bookmark)
-- if like
-  = link_to "Unlike", bookmark_like_path(bookmark, like), method: :delete
-- else
-  = link_to "Like", bookmark_likes_path(bookmark), method: :post
+- if current_user && like = current_user.likes.find_by_bookmark_id(bookmark)
+  - if like
+    = link_to "Unlike", bookmark_like_path(bookmark, like), method: :delete
+  - else
+    = link_to "Like", bookmark_likes_path(bookmark), method: :post
