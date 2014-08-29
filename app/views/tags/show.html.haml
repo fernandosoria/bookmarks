@@ -3,3 +3,4 @@
   .media
     .media-body
       %h4.media-heading= bookmark.url
+      = render partial: 'likes/like', locals: {bookmark: bookmark}

@@ -7,5 +7,6 @@
         %ul.list-unstyled
           - if index < 4
             %li= bookmark.url
+            = render partial: 'likes/like', locals: {bookmark: bookmark}
       - if tag.bookmarks.length > 4
         = link_to "More &#10145;".html_safe, tag
