@@ -24,8 +24,9 @@ class IncomingController < ApplicationController
 
       # associate tags with @bookmark
       @tags.each do |tag|
-        tag = @bookmark.tags.build(label: tag)
-        tag.save!
+        # build new tag
+        t = Tag.where(label: tag).first_or_create
+        @bookmark.tags << t
       end
 
       # Add URL to bookmark

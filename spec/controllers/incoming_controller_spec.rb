@@ -17,7 +17,7 @@ describe IncomingController do
       bookmark = @user.bookmarks.first
 
       expect(@user.bookmarks.count).to eq(1)
-      expect(bookmark.tags.map(&:label)).to eq(['programming','cis'])
+      expect(bookmark.tags.map(&:label)).to eq(['cis','programming'])
       expect(bookmark.url).to eq('https://www.bloc.io/web-development')
     end
 
@@ -29,8 +29,19 @@ describe IncomingController do
       post :create, {:sender => email, :subject => subject, 'body-plain' => body}
 
       bookmark = @user.bookmarks.first
-      expect(bookmark.tags.map(&:label)).to eq(['programming','javascript','webdevelopment'])
+      expect(bookmark.tags.map(&:label)).to eq(['webdevelopment','javascript','programming'])
     end
 
+    it "should associate bookmark with existing tag if it exists" do
+      email = @user.email
+      subject = '#programming'
+      body = 'http://lifehacker.com/eloquent-javascript-teaches-you-javascript-for-free-1614045478 \n\n \n \n\n________________________________\n\nJohn Smith\ne john@example.com\np 555.555.1234'
+      tag = Tag.create(label: "programming")
+      
+      post :create, {:sender => email, :subject => subject, 'body-plain' => body}
+
+      bookmark = @user.bookmarks.first
+      expect(bookmark.tags.map(&:id)).to include(tag.id)
+    end
   end
 end
