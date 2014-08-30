@@ -28,7 +28,8 @@ class UsersController < ApplicationController
   end
 
   def user_tags
-    tag_ids_array = user_tag_ids.flatten
+    # Unique tags only
+    tag_ids_array = user_tag_ids.flatten.uniq
 
     tag_ids_array.map do |tag_id|
       Tag.find(tag_id)
