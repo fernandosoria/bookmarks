@@ -24,6 +24,9 @@ gem 'omniauth-facebook'
 # Use Pundit to generate authorization for roles
 gem 'pundit'
 
+# Use New Relic for app performance monitoring
+gem 'newrelic_rpm'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'
