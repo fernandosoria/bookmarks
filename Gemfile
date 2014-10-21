@@ -27,6 +27,9 @@ gem 'pundit'
 # Use New Relic for app performance monitoring
 gem 'newrelic_rpm'
 
+# Use Embed.ly gem to generate URL previews for bookmarks
+gem 'embedly'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'

@@ -1,16 +1,29 @@
+- embedly_api = Embedly::API.new :key => ENV['EMBEDLY_KEY'], :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)'
+
 %h1 My Bookmarks
 - @tags.each do |tag|
   .media
     .media-body
       %h4.media-heading= link_to "##{tag.label}", tag
-      %ul.list-unstyled
+      .row
         - tag.bookmarks.each do |bookmark|
           - if current_user.id == bookmark.user_id
-            %li= bookmark.url
-            - if policy(bookmark).edit?
-              = link_to "Edit", edit_bookmark_path(bookmark)
-              = " | "
-              = link_to "Delete", bookmark, method: :delete, data: {confirm: 'Are you sure you want to delete this bookmark?'}
+            - url = bookmark.url
+            - obj = embedly_api.extract :url => url
+            .col-md-6
+              .row.preview-container
+                %a{href: url, target: '_blank'}
+                  .col-md-4.preview-image
+                    %div
+                      = image_tag(obj.first.images[0]['url'])
+                  .col-md-8.preview-info
+                    %div
+                      %h3= truncate(obj.first.title, length: 50)
+                      %p= truncate(obj.first.description, length: 175)
+              - if policy(bookmark).edit?
+                = link_to "Edit", edit_bookmark_path(bookmark)
+                = " | "
+                = link_to "Delete", bookmark, method: :delete, data: {confirm: 'Are you sure you want to delete this bookmark?'}
 
 - if current_user.likes.count > 0
   %h2 Liked Bookmarks
@@ -18,8 +31,19 @@
     .media
       .media-body
         %h4.media-heading= link_to "##{Tag.find_by(id: i).label}", Tag.find_by(id: i)
-        %ul.list-unstyled
+        .row
           - Tag.find_by(id: i).bookmarks.each do |bookmark|
             - if current_user.liked(bookmark)
-              %li= bookmark.url
-              = render partial: 'likes/like', locals: {bookmark: bookmark}
+              - url = bookmark.url
+              - obj = embedly_api.extract :url => url
+              .col-md-6
+                .row.preview-container
+                  %a{href: url, target: '_blank'}
+                    .col-md-4.preview-image
+                      %div
+                        = image_tag(obj.first.images[0]['url'])
+                    .col-md-8.preview-info
+                      %div
+                        %h3= truncate(obj.first.title, length: 50)
+                        %p= truncate(obj.first.description, length: 175)
+                = render partial: 'likes/like', locals: {bookmark: bookmark}

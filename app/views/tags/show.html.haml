@@ -1,6 +1,20 @@
+- embedly_api = Embedly::API.new :key => ENV['EMBEDLY_KEY'], :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)'
+
 %h1= "##{@tag.label}"
-- @bookmarks.each do |bookmark|
-  .media
-    .media-body
-      %h4.media-heading= bookmark.url
-      = render partial: 'likes/like', locals: {bookmark: bookmark}
+.media
+  .media-body
+    .row
+      - @bookmarks.each do |bookmark|
+        - url = bookmark.url
+        - obj = embedly_api.extract :url => url
+        .col-md-6
+          .row.preview-container
+            %a{href: url, target: '_blank'}
+              .col-md-4.preview-image
+                %div
+                  = image_tag(obj.first.images[0]['url'])
+              .col-md-8.preview-info
+                %div
+                  %h3= truncate(obj.first.title, length: 50)
+                  %p= truncate(obj.first.description, length: 175)
+          = render partial: 'likes/like', locals: {bookmark: bookmark}
